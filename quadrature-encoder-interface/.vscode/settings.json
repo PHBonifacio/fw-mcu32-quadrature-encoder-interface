@@ -1,0 +1,14 @@
+{
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "files.associations": {
+        "fpu.h": "c",
+        "sysctl.h": "c",
+        "pin_map.h": "c",
+        "uartstdio.h": "c",
+        "uart.h": "c",
+        "hw_memmap.h": "c",
+        "rom.h": "c",
+        "gpio.h": "c",
+        "qei.h": "c"
+    }
+}
