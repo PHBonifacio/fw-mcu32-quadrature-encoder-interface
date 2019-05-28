@@ -31,4 +31,6 @@ Desenvolvimento de utilização do periférico Quadrature Encoder Interface para
 
 - UART0 utilizada para DEBUG nos pinos PA0 e PA1.
 
+- [Github](https://github.com/PHBonifacio/fw-mcu32-quadrature-encoder-interface)
+
 --------------------------------------------------------------------------------
