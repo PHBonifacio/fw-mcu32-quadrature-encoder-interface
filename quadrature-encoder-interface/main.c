@@ -1,4 +1,13 @@
-
+/**
+ * @file main.c
+ * @author Pedro H. Bonifacio (pedrobonifa@gmail.com)
+ * @brief 
+ * @version 1.0
+ * @date 2019-05-18
+ * 
+ * @copyright Copyright (c) 2019
+ * 
+ */
 #ifndef TICK
 #define TICK            1000
 #endif
@@ -16,22 +25,29 @@
 #endif
 
 #include "TM4C123GH6PM.h"
-//TIVAWARE
+/*  TIVAWARE */
 #include <stdint.h> 
 #include <stdbool.h>
 #include <stdio.h>
 #include "driverlib/sysctl.h"
 #include "driverlib/fpu.h" 
-#include "driverlib/sysctl.h" //Prototypes for the system control driver
-#include "driverlib/rom.h" //Macros to facilitate calling functions in the ROM
-#include "driverlib/pin_map.h" //Mapping of peripherals to pins for all parts
-#include "driverlib/uart.h" //Defines and Macros for the UART
-#include "utils/uartstdio.h" //Prototypes for the UART console fun
-#include "driverlib/gpio.h" //Defines and Macros for GPIO API
+#include "driverlib/sysctl.h" /*    Prototypes for the system control driver */
+#include "driverlib/rom.h" /*   Macros to facilitate calling functions in the ROM */
+#include "driverlib/pin_map.h" /*   Mapping of peripherals to pins for all parts */
+#include "driverlib/uart.h" /*  Defines and Macros for the UART */
+#include "utils/uartstdio.h" /* Prototypes for the UART console fun */
+#include "driverlib/gpio.h" /*  Defines and Macros for GPIO API */
 #include "driverlib/qei.h"
 
 static uint32_t systick_ms_count = 1;
 
+/**
+ * @brief Transmite uma string pela UART até encontrar um '\0'.
+ * 
+ * @param uart UART que deve ser utilizada.
+ * @param txt Ponteiro para a posicao inicial da string.
+ * @return uint16_t Numero de caracteres transmitidos.
+ */
 uint16_t UART_Write_String(uint32_t uart, uint8_t* txt)
 {
     uint16_t length = 0;
@@ -45,6 +61,11 @@ uint16_t UART_Write_String(uint32_t uart, uint8_t* txt)
     return length;
 }
 
+/**
+ * @brief Delay bloqueante utilizando a contagem do Systick.
+ * 
+ * @param time Tempo de delay em milisegundos.
+ */
 void Delay_ms(uint32_t time)
 {
     uint32_t start_time = systick_ms_count;
@@ -55,6 +76,11 @@ void Delay_ms(uint32_t time)
     }
 }
 
+/**
+ * @brief Inicializacao dos perifericos de hardware.
+ * 
+ * @return uint8_t 
+ */
 uint8_t Hardware_Init(void)
 {
     /*  Habilita PLL e configura clock para 80MHz */
@@ -111,11 +137,16 @@ uint8_t Hardware_Init(void)
 
 uint32_t last_read = 0;
 uint32_t new_read = 0;
+
 int main()
 {
+    uint32_t last_read = 0;
+    uint32_t new_read = 0;
+
     Hardware_Init();
     
     SysTick_Config(SysCtlClockGet() / TICK);
+
     new_read = QEIPositionGet(QEI0_BASE);
 
 	while(1)
